@@ -13,6 +13,9 @@
 ;; Compile as pdf
 (setq TeX-PDF-mode t)
 
+;; Forward/Inverse Search
+(TeX-source-correlate-mode)
+
 ;; Mouse scrolling
 (mouse-wheel-mode t)
  
