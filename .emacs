@@ -14,7 +14,8 @@
 (setq TeX-PDF-mode t)
 
 ;; Forward/Inverse Search
-(TeX-source-correlate-mode)
+(setq TeX-source-correlate-mode t)
+(setq TeX-source-correlate-start-server t)
 
 ;; Mouse scrolling
 (mouse-wheel-mode t)
