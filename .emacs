@@ -6,9 +6,12 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-;; Check to make sure packages are installed
-(setq my-package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
-(mapc #'package-install my-package-list)
+;; Check to make sure packages are installed from archives (can be commented out)
+;;(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+;;                         ("marmalade" . "https://marmalade-repo.org/packages/")
+;;                         ("melpa" . "https://melpa.org/packages/")))
+;;(setq my-package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
+;;(mapc #'package-install my-package-list)
 
 ;; Load zenburn theme
 (load-theme 'zenburn t)
