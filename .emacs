@@ -1,14 +1,14 @@
 ;; AucTeX configuration
 
-;; Check to make sure packages are installed
-(setq my-package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
-(mapc #'package-install my-package-list)
-
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
+
+;; Check to make sure packages are installed
+(setq my-package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
+(mapc #'package-install my-package-list)
 
 ;; Load zenburn theme
 (load-theme 'zenburn t)
