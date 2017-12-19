@@ -1,17 +1,25 @@
 ;; Emacs configuration
+;; Brian Hu
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+; list the packages you want
+(setq package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
+
+; list the repositories containing them
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
+
+; activate all the packages (in particular autoloads)
 (package-initialize)
 
-;; Check to make sure packages are installed from archives (can be commented out)
-;;(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-;;                         ("marmalade" . "https://marmalade-repo.org/packages/")
-;;                         ("melpa" . "https://melpa.org/packages/")))
-;;(setq my-package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
-;;(mapc #'package-install my-package-list)
+; fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;; Load zenburn theme
 (load-theme 'zenburn t)
