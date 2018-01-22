@@ -32,11 +32,12 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-;; Hide the startup message
-(setq inhibit-startup-message t)
 
 ;; BASIC
 ;; -------------------------------
+;; Hide the startup message
+(setq inhibit-startup-message t)
+
 ;; Load zenburn theme
 (load-theme 'zenburn t)
 
@@ -49,6 +50,7 @@
 
 ;; Mouse scrolling
 (mouse-wheel-mode t)
+
 
 ;; PYTHON
 ;; -------------------------------
@@ -65,6 +67,7 @@
 ;; Autopep8 formatting
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
 
 ;; LATEX
 ;; -------------------------------
@@ -93,20 +96,9 @@
 ;; Other useful features
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
+
 ;; GIT
 ;; -------------------------------
 ;; Magit keybinds
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (py-autopep8 zenburn-theme magit elpy auctex))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
