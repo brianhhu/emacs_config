@@ -1,29 +1,73 @@
 ;; Emacs configuration
 ;; Brian Hu
 
-; list the packages you want
-(setq package-list '(auctex magit git-commit magit-popup with-editor dash async zenburn-theme))
+;; The following is used to automatically install emacs packages
+;; https://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name
 
-; list the repositories containing them
+;; List the packages you want
+(setq package-list '(auctex
+                     magit
+                     git-commit
+                     magit-popup
+                     with-editor
+                     dash
+                     async
+                     py-autopep8
+                     zenburn-theme))
+
+;; List the repositories containing them
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-; activate all the packages (in particular autoloads)
+;; Activate all the packages (in particular autoloads)
 (package-initialize)
 
-; fetch the list of packages available 
+;; Fetch the list of packages available 
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
+;; Install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
+;; Hide the startup message
+(setq inhibit-startup-message t)
+
+;; BASIC
+;; -------------------------------
 ;; Load zenburn theme
 (load-theme 'zenburn t)
 
+;; Show line-number and column-number in the mode line
+(line-number-mode 1)
+(column-number-mode 1)
+ 
+;; Highlight current line
+(global-hl-line-mode 1)
+
+;; Mouse scrolling
+(mouse-wheel-mode t)
+
+;; PYTHON
+;; -------------------------------
+;; Load elpy (for Python editing)
+(elpy-enable)
+
+;; Fix a key binding bug in elpy
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+
+;; Python virtual environments (conda)
+(setenv "WORKON_HOME" "/home/brianh/miniconda3/envs")
+(pyvenv-mode 1)
+
+;; Autopep8 formatting
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+;; LATEX
+;; -------------------------------
 ;; Tex options
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
@@ -35,9 +79,6 @@
 ;; Forward/Inverse Search
 (setq TeX-source-correlate-mode t)
 (setq TeX-source-correlate-start-server t)
-
-;; Mouse scrolling
-(mouse-wheel-mode t)
  
 ;; Spellcheck in LaTex mode
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
@@ -48,17 +89,24 @@
 ;; RefTex mode for LaTex
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
- 
-;; Show line-number and column-number in the mode line
-(line-number-mode 1)
-(column-number-mode 1)
- 
-;; Highlight current line
-(global-hl-line-mode 1)
 
 ;; Other useful features
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
+;; GIT
+;; -------------------------------
 ;; Magit keybinds
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (py-autopep8 zenburn-theme magit elpy auctex))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
