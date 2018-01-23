@@ -5,14 +5,15 @@
 ;; https://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name
 
 ;; List the packages you want
-(setq package-list '(auctex
-                     magit
-                     git-commit
-                     magit-popup
-                     with-editor
+(setq package-list '(async
+                     auctex
                      dash
-                     async
+                     elpy
+                     git-commit
+                     magit
+                     magit-popup
                      py-autopep8
+                     with-editor
                      zenburn-theme))
 
 ;; List the repositories containing them
