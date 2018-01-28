@@ -58,9 +58,6 @@
 ;; Load elpy (for Python editing)
 (elpy-enable)
 
-;; Fix a key binding bug in elpy
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-
 ;; Python virtual environments (conda)
 (setenv "WORKON_HOME" "/home/brianh/miniconda3/envs")
 (pyvenv-mode 1)
