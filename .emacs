@@ -58,6 +58,14 @@
 ;; Load elpy (for Python editing)
 (elpy-enable)
 
+;; Use Jupyter console as default interpreter
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt")
+
+;; Disable warnings
+(setq python-shell-completion-native-enable nil)
+(setq python-shell-prompt-detect-failure-warning nil)
+
 ;; Python virtual environments (conda)
 (setenv "WORKON_HOME" "/home/brianh/miniconda3/envs")
 (pyvenv-mode 1)
