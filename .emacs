@@ -49,6 +49,10 @@
 ;; Mouse scrolling
 (mouse-wheel-mode t)
 
+;; Automatically switch to newly created window
+(global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
+
 
 ;; PYTHON
 ;; -------------------------------
