@@ -56,6 +56,9 @@
 ;; Use windmove to navigate between windows (shift+arrow key)
 (windmove-default-keybindings)
 
+;; Open up buffer in same window
+(global-set-key "\C-x\C-b" 'buffer-menu)
+
 
 ;; PYTHON
 ;; -------------------------------
