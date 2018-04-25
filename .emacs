@@ -56,8 +56,12 @@
 ;; Use windmove to navigate between windows (shift+arrow key)
 (windmove-default-keybindings)
 
-;; Open up buffer in same window
+;; Open buffer list in current window
 (global-set-key "\C-x\C-b" 'buffer-menu)
+
+;; Open shell in current window
+(add-to-list 'display-buffer-alist
+             `(,(regexp-quote "*shell") display-buffer-same-window))
 
 
 ;; PYTHON
