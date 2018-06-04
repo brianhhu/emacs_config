@@ -63,6 +63,9 @@
 (add-to-list 'display-buffer-alist
              `(,(regexp-quote "*shell") display-buffer-same-window))
 
+;; Don't delete shell prompt
+(setq comint-prompt-read-only t)
+
 
 ;; PYTHON
 ;; -------------------------------
