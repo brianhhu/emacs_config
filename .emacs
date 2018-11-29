@@ -53,8 +53,8 @@
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
-;; Use windmove to navigate between windows (shift+arrow key)
-(windmove-default-keybindings)
+;; Use windmove to navigate between windows (super+arrow key)
+(windmove-default-keybindings 'super)
 
 ;; Open buffer list in current window
 (global-set-key "\C-x\C-b" 'buffer-menu)
@@ -79,6 +79,9 @@
 ;; Use ipython as default interpreter
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
+
+;; Don't use project root
+(setq elpy-shell-use-project-root nil)
 
 ;; Disable warnings
 (setq python-shell-completion-native-enable nil)
