@@ -33,9 +33,6 @@
 
 ;; BASIC
 ;; -------------------------------
-;; Start an emacs server
-(server-start) 
-
 ;; Ensure same path as .bashrc
 (defun set-exec-path-from-shell-PATH ()
         (interactive)
