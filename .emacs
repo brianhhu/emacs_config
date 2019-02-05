@@ -21,8 +21,8 @@
                          ("marmalade" . "https://marmalade-repo.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-;; Fetch the list of packages available 
-(unless package-archive-contents
+;; Fetch the list of packages available
+(or (file-exists-p package-user-dir)
   (package-refresh-contents))
 
 ;; Install the missing packages
