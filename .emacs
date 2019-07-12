@@ -11,7 +11,6 @@
                      elpy
                      git-commit
                      magit
-                     magit-popup
                      py-autopep8
                      with-editor
                      zenburn-theme))
