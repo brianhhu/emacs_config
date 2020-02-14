@@ -74,6 +74,9 @@
 ;; Don't delete shell prompt
 (setq comint-prompt-read-only t)
 
+;; Disable auto-save-list
+(setq auto-save-list-file-prefix nil)
+
 
 ;; PYTHON
 ;; -------------------------------
