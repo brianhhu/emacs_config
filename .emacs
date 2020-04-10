@@ -5,6 +5,8 @@
 ;; https://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name
 
 ;; List the packages you want
+(require 'package)
+(package-initialize)
 (setq package-list '(async
                      auctex
                      dash
@@ -84,7 +86,8 @@
 (elpy-enable)
 
 ;; Python virtual environments (conda)
-(setenv "WORKON_HOME" "/home/brianh/miniconda3/envs")
+(setq elpy-rpc-virtualenv-path 'current)
+(setenv "WORKON_HOME" "/home/brian/miniconda3/envs")
 (pyvenv-mode 1)
 
 ;; Use ipython as default interpreter
