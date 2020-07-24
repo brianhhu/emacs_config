@@ -63,8 +63,8 @@
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
-;; Use windmove to navigate between windows (super+arrow key)
-(windmove-default-keybindings 'super)
+;; Use windmove to navigate between windows (shift+arrow key)
+(windmove-default-keybindings)
 
 ;; Open buffer list in current window
 (global-set-key "\C-x\C-b" 'buffer-menu)
