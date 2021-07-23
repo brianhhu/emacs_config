@@ -7,8 +7,7 @@
 ;; List the packages you want
 (require 'package)
 (package-initialize)
-(setq package-list '(async
-                     auctex
+(setq package-list '(auctex
                      dash
                      elpy
                      git-commit
