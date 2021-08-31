@@ -17,9 +17,9 @@
                      zenburn-theme))
 
 ;; List the repositories containing them
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
+(setq package-archives '(("elpa" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; Fetch the list of packages available
 (or (file-exists-p package-user-dir)
