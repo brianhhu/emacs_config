@@ -115,7 +115,9 @@
 
 ;; Autopep8 formatting
 (require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'elpy-mode-hook (lambda ()
+                            (add-hook 'before-save-hook
+                                      'elpy-format-code nil t)))
 
 
 ;; LATEX
