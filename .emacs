@@ -10,7 +10,6 @@
 (setq package-list '(auctex
                      dash
                      elpy
-                     git-commit
                      magit
                      py-autopep8
                      with-editor
