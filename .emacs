@@ -9,10 +9,10 @@
 (package-initialize)
 (setq package-list '(auctex
                      dash
-                     elpy
+		     eglot
                      magit
-                     py-autopep8
-                     with-editor
+		     ruff-format
+		     with-editor
                      zenburn-theme))
 
 ;; List the repositories containing them
@@ -22,7 +22,7 @@
 
 ;; Fetch the list of packages available
 (or (file-exists-p package-user-dir)
-  (package-refresh-contents))
+    (package-refresh-contents))
 
 ;; Install the missing packages
 (dolist (package package-list)
@@ -91,32 +91,43 @@
 (set-keymap-parent input-decode-map map))))
 
 
-;; PYTHON
-;; -------------------------------
-;; Load elpy (for Python editing)
-(elpy-enable)
+;; ;; PYTHON
+;; ;; -------------------------------
+(require 'python)
+(require 'eglot)
+(require 'ruff-format)
 
-;; Python virtual environments (conda)
-(setq elpy-rpc-virtualenv-path 'current)
-(setenv "WORKON_HOME" "/home/brian/miniconda3/envs")
-(pyvenv-mode 1)
+;; Use Pyright for diagnostics, completion, and navigation.
+(add-to-list 'eglot-server-programs
+             '((python-mode python-ts-mode)
+               . ("pyright-langserver" "--stdio")))
 
-;; Use ipython as default interpreter
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
+;; Use ordinary Python for the interactive shell.
+(setq python-shell-interpreter "python3"
+      python-shell-interpreter-args "-i")
 
-;; Don't use project root
-(setq elpy-shell-use-project-root nil)
+(defun python-setup ()
+  "Use a project's .venv, start Eglot, and format with Ruff."
+  (let* ((root (locate-dominating-file default-directory
+                                      ".venv"))
+         (python (and root
+                      (expand-file-name ".venv/bin/python" root))))
+    (when (and python (file-executable-p python))
+      ;; C-c C-p starts this project's Python interpreter.
+      (setq-local python-shell-interpreter python)
 
-;; Disable warnings
-(setq python-shell-completion-native-enable nil)
-(setq python-shell-prompt-detect-failure-warning nil)
+      ;; Tell Pyright which environment contains project dependencies.
+      (setq-local eglot-workspace-configuration
+                  `(:python (:pythonPath ,python)))))
 
-;; Autopep8 formatting
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook (lambda ()
-                            (add-hook 'before-save-hook
-                                      'elpy-format-code nil t)))
+  ;; Ruff formats the buffer before saving.
+  (ruff-format-on-save-mode 1)
+
+  ;; Eglot displays Pyright diagnostics through Flymake.
+  (eglot-ensure))
+
+(add-hook 'python-mode-hook #'python-setup)
+(add-hook 'python-ts-mode-hook #'python-setup)
 
 
 ;; LATEX
