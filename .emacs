@@ -8,12 +8,13 @@
 (require 'package)
 (package-initialize)
 (setq package-list '(auctex
-                     dash
+		     company
+		     dash
 		     eglot
-                     magit
+		     magit
 		     ruff-format
 		     with-editor
-                     zenburn-theme))
+		     zenburn-theme))
 
 ;; List the repositories containing them
 (setq package-archives '(("elpa" . "https://elpa.gnu.org/packages/")
@@ -95,16 +96,68 @@
 ;; ;; -------------------------------
 (require 'python)
 (require 'eglot)
+(require 'company)
 (require 'ruff-format)
+
+;; Use ordinary Python for the interactive shell.
+(setq python-shell-interpreter "python3"
+      python-shell-interpreter-args "-i")
+
+;; Python REPL toggle
+(defvar-local python-source-buffer nil
+  "Python source buffer associated with this REPL.")
+
+(defun python-toggle-repl ()
+  "Toggle between a Python source buffer and its Python REPL."
+  (interactive)
+  (cond
+   ;; From REPL -> source.
+   ((derived-mode-p 'inferior-python-mode)
+    (if (buffer-live-p python-source-buffer)
+        (pop-to-buffer python-source-buffer)
+      (message "No associated Python source buffer.")))
+
+   ;; From source -> REPL.
+   ((derived-mode-p 'python-mode 'python-ts-mode)
+    (let ((source (current-buffer))
+          (process (python-shell-get-process)))
+      (unless (process-live-p process)
+        (run-python (python-shell-calculate-command) nil nil)
+        (setq process (python-shell-get-process)))
+
+      (unless (process-live-p process)
+        (user-error "Could not start Python REPL"))
+
+      (let ((repl (process-buffer process)))
+        (with-current-buffer repl
+          (setq python-source-buffer source))
+
+        (if-let ((window (get-buffer-window repl)))
+            (select-window window)
+          (let ((window (split-window-right)))
+            (set-window-buffer window repl)
+            (select-window window))))))))
+
+(with-eval-after-load 'python
+  (dolist (map '(python-mode-map
+                 python-ts-mode-map
+                 inferior-python-mode-map))
+    (when (boundp map)
+      (keymap-set (symbol-value map)
+                  "C-c C-z"
+                  #'python-toggle-repl))))
 
 ;; Use Pyright for diagnostics, completion, and navigation.
 (add-to-list 'eglot-server-programs
              '((python-mode python-ts-mode)
                . ("pyright-langserver" "--stdio")))
 
-;; Use ordinary Python for the interactive shell.
-(setq python-shell-interpreter "python3"
-      python-shell-interpreter-args "-i")
+;; Company completion settings.
+(setq company-idle-delay 0.2
+      company-minimum-prefix-length 1
+      company-selection-wrap-around t)
+
+(add-hook 'eglot-managed-mode-hook #'company-mode)
 
 (defun python-setup ()
   "Use a project's .venv, start Eglot, and format with Ruff."
